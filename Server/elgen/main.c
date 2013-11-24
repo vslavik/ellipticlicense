@@ -176,7 +176,7 @@ int main (int argc, const char * argv[]) {
 	
 	// calculate sha-1
 	unsigned char digest[SHA_DIGEST_LENGTH];
-	SHA1((unsigned char *)name, strlen(name)-1, digest);
+	SHA1((unsigned char *)name, strlen(name), digest);
 	
 	// sign
 	ECDSA_SIG *sig = ECDSA_do_sign(digest, digest_len, eckey);
