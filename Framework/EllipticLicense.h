@@ -54,7 +54,7 @@ NSString *ELCurveNameSecp160r1 = @"secp160r1";
 - (NSString *)privateKey;
 - (NSString *)publicKey;
 
-@property(retain) NSArray *blockedLicenseKeyHashes;
+@property(strong) NSArray *blockedLicenseKeyHashes;
 - (BOOL)isBlockedLicenseKey:(NSString *)licenseKey;
 
 - (BOOL)generateKeys;

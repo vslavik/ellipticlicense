@@ -39,9 +39,9 @@
 @property (assign) NSInteger numberOfCharactersInDashGroup;
 @property (copy) NSString *publicKey;
 @property (copy) NSString *privateKey;
-@property (retain) NSArray *blockedLicenseKeys;
+@property (strong) NSArray *blockedLicenseKeys;
 @property (copy, readonly) NSString *exampleLicenseKey;
-@property (retain) EllipticLicense *ellipticLicense;
+@property (strong) EllipticLicense *ellipticLicense;
 @property (assign) BOOL isLocked;
 @property (copy) NSString *obfuscatedPublicKeyCode;
 

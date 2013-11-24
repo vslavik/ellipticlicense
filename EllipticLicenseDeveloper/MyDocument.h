@@ -36,7 +36,7 @@
 	IBOutlet id blockedKeysController;
 }
 
-@property (retain) ProductStore *productStore;
+@property (strong) ProductStore *productStore;
 - (IBAction)generateKeys:(id)sender;
 - (IBAction)generateLicenseKey:(id)sender;
 - (IBAction)verifyLicenseKey:(id)sender;

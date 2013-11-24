@@ -238,16 +238,8 @@
 	ERR_free_strings();
 	if (ecKey)
 		EC_KEY_free(ecKey);
-	[super dealloc];
 }
 
-- (void)finalize;
-{
-	ERR_free_strings();
-	if (ecKey)
-		EC_KEY_free(ecKey);
-	[super finalize];
-}
 
 @end
 
@@ -256,14 +248,14 @@
 - (NSString *)stringSeparatedWithDashes:(NSString *)string;
 {
 	if (numberOfDashGroupCharacters == 0)
-		return [[string copy] autorelease];
+		return [string copy];
 	NSMutableString *result = [string mutableCopy];
 	int i = numberOfDashGroupCharacters;
 	while (i < [result length]) {
 		[result insertString:@"-" atIndex:i];
 		i += numberOfDashGroupCharacters + 1;
 	}	
-	return [result autorelease];
+	return result;
 }
 
 
@@ -275,7 +267,7 @@
 	[cleanKey replaceOccurrencesOfString:@"0" withString:@"O" options:0 range:NSMakeRange(0, [cleanKey length])];
 	[cleanKey replaceOccurrencesOfString:@"1" withString:@"I" options:0 range:NSMakeRange(0, [cleanKey length])];
 	[cleanKey replaceOccurrencesOfString:@"8" withString:@"B" options:0 range:NSMakeRange(0, [cleanKey length])];
-	return [cleanKey autorelease];
+	return cleanKey;
 }
 
 @end

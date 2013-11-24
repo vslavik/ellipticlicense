@@ -215,7 +215,7 @@
 - (NSString *)el_hexString;
 {
 	const unsigned char *bytes = [self bytes];
-	NSMutableString *hexString = [[[NSMutableString alloc] initWithCapacity:[self length] * 2] autorelease];
+	NSMutableString *hexString = [[NSMutableString alloc] initWithCapacity:[self length] * 2];
 	for (int i = 0; i < [self length]; i++)
 		[hexString appendFormat:@"%02x", (unsigned char)(bytes[i])];
 	return [hexString uppercaseString];

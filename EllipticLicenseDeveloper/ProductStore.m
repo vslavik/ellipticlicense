@@ -83,15 +83,6 @@ NSString *exampleKeyString = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	[encoder encodeBool:isLocked forKey:@"isLocked"];
 }
 
-- (void)dealloc;
-{
-	[curveName release];
-	[publicKey release];
-	[privateKey release];
-	[blockedLicenseKeys release];
-	[ellipticLicense release];
-	[super dealloc];
-}
 
 - (NSInteger)curveNameTag;
 {
@@ -122,7 +113,6 @@ NSString *exampleKeyString = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	[self willChangeValueForKey:@"exampleLicenseKey"];
 	if (curveName == name)
 		return;
-	[curveName release];
 	curveName = [name copy];
 	[ellipticLicense setCurveName:curveName];
 	[self setNumberOfCharactersInDashGroup:[ellipticLicense numberOfDashGroupCharacters]];
@@ -144,14 +134,14 @@ NSString *exampleKeyString = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 - (NSString *)stringSeparatedWithDashes:(NSString *)string numberOfCharactersInGroup:(NSInteger)number;
 {
 	if (number == 0)
-		return [[string copy] autorelease];
+		return [string copy];
 	NSMutableString *result = [string mutableCopy];
 	int i = number;
 	while (i < [result length]) {
 		[result insertString:@"-" atIndex:i];
 		i += number + 1;
 	}	
-	return [result autorelease];
+	return result;
 }
 
 - (NSString *)exampleLicenseKey;
@@ -179,8 +169,7 @@ NSString *exampleKeyString = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	if ([hashes count] > 0)
 		[ellipticLicense setBlockedLicenseKeyHashes:hashes];
 	
-	[blockedLicenseKeys release];
-	blockedLicenseKeys = [keys retain];
+	blockedLicenseKeys = keys;
 	[self didChangeValueForKey:@"blockedLicenseKeys"];
 }
 

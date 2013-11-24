@@ -31,7 +31,7 @@
     
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
-		[self setProductStore:[[[ProductStore alloc] init] autorelease]];
+		[self setProductStore:[[ProductStore alloc] init]];
 		[self updateChangeCount:NSChangeDone];
     }
     return self;
@@ -44,8 +44,7 @@
 	[productStore removeObserver:self forKeyPath:@"blockedLicenseKeys"];
 	[productStore removeObserver:self forKeyPath:@"publicKey"];
 	[productStore removeObserver:self forKeyPath:@"numberOfCharactersInDashGroup"];
-	[productStore release];
-	productStore = [newStore retain];
+	productStore = newStore;
 	[productStore addObserver:self forKeyPath:@"blockedLicenseKeys" options:NSKeyValueObservingOptionNew context:nil];
 	[productStore addObserver:self forKeyPath:@"publicKey" options:NSKeyValueObservingOptionNew context:nil];
 	[productStore addObserver:self forKeyPath:@"numberOfCharactersInDashGroup" options:NSKeyValueObservingOptionNew context:nil];
@@ -85,7 +84,7 @@
 	[archiver setOutputFormat:NSPropertyListXMLFormat_v1_0];
 	[archiver encodeObject:productStore];
 	[archiver finishEncoding];
-	return [data autorelease];
+	return data;
 	
     if ( outError != NULL ) {
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
@@ -107,7 +106,6 @@
 	// Customize unarchiver here
 	[self setProductStore:[unarchiver decodeObject]];
 	[unarchiver finishDecoding];
-	[unarchiver release];
 	[self updateChangeCount:NSChangeCleared];
 
     if ( outError != NULL ) {
@@ -119,7 +117,6 @@
 - (void)dealloc;
 {
 	[self setProductStore:nil];
-	[super dealloc];
 }
 
 #pragma mark -
