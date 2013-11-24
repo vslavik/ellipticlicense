@@ -1,7 +1,11 @@
 EllipticLicense
 ===============
 
-Short product key generation and validation framework based on elliptic curves digital signatures (ECDSA) for Mac OS X/Cocoa.
+*Note: this is an incompatible(!) fork of now-defunct https://github.com/dchest/ellipticlicense*
+
+
+Short product key generation and validation framework based on elliptic curves digital signatures (ECDSA).
+ for Mac OS X/Cocoa.
 
 Project goal: replacement for AquaticPrime with shorter keys and similar or better security.
 
@@ -34,7 +38,7 @@ There's a GUI application for managing your project public and private keys, gen
 
 ## Requirements
 
-Mac OS X 10.6 (because it includes libcrypto.0.9.8d.dylib, don't forget to link you project with it).	
+Mac OS X 10.7 (because it includes libcrypto.0.9.8d.dylib, don't forget to link you project with it).	
 
 
 License
@@ -43,11 +47,7 @@ License
 EllipticLicense is licensed under Apache 2 license. See LICENSE. License!
 
 
-Mailing list
-------------
-
-Send email to <ellipticlicense@librelist.com> to subscribe.
-
 * * *
 
-Made by [Coding Robots](http://www.codingrobots.com)
+This fork maintained by [Vaclav Slavik](mailto:vslavik@fastmail.fm) (@vslavik)
+Originally made by [Coding Robots](http://www.codingrobots.com)
