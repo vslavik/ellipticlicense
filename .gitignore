@@ -1,4 +1,3 @@
-Builds/*
 _FOSSIL_
 manifest
 manifest.uuid
@@ -10,9 +9,8 @@ manifest.uuid
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-*.xcworkspace
-!default.xcworkspace
 xcuserdata
+*.xccheckout
 profile
 *.moved-aside
 
