@@ -103,7 +103,7 @@ int main (int argc, const char * argv[]) {
 		return ERR_CURVE_UNKNOWN;
 	}
 	
-	eckey = EC_KEY_new_by_curve_name(NID_secp112r1);
+	eckey = EC_KEY_new_by_curve_name(curve);
 	if (eckey == NULL)
 		return ERR_INIT_KEY;
 	
