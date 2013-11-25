@@ -2,18 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "container:EllipticLicenseDeveloper/EllipticLicenseDeveloper.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Static Library/EllipticLicense.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:EllipticLicenseDeveloper/EllipticLicenseDeveloper.xcodeproj">
+      location = "group:Framework/EllipticLicense.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Test/Test.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Server/elgen/elgen.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Framework/EllipticLicense.xcodeproj">
    </FileRef>
 </Workspace>
