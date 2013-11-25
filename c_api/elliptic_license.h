@@ -20,4 +20,37 @@
 #ifndef elliptic_license_h
 #define elliptic_license_h
 
+#include <stdint.h>
+
+/**
+    Decodes base32 (RFC 4648/3548) data.
+
+    In addition to the base32 alphabet, white-space and hyphens are allowed,
+    but all other characters are considered invalid.
+
+    @param encoded   NULL-terminated string to decode.
+    @param result    Pointer to output buffer.
+    @param bufSize   Size of the @a result buffer.
+
+    @return The number of output bytes or -1 on error.
+
+    @note If the output buffer is too small, the result will silently be truncated.
+ */
+int el_base32_decode(const uint8_t *encoded, uint8_t *result, int bufSize);
+
+/**
+    Encodes data in base32 (RFC 4648/3548).
+
+    @param data      Data to encode.
+    @param length    Size of @a data.
+    @param result    Pointer to output buffer for the string. The data will be
+                     NULL-terminated if there's enough room in the buffer for it.
+    @param bufSize   Size of the @a result buffer.
+
+    @return The number of output bytes or -1 on error.
+
+    @note If the output buffer is too small, the result will silently be truncated.
+ */
+int el_base32_encode(const uint8_t *data, int length, uint8_t *result, int bufSize);
+
 #endif // elliptic_license_h

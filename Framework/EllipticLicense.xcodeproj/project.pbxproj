@@ -16,6 +16,7 @@
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		B2B83A9118431DA300D2BBF4 /* elliptic_license.h in Resources */ = {isa = PBXBuildFile; fileRef = B2B83A8E18431DA300D2BBF4 /* elliptic_license.h */; };
 		B2B83A9218431DA300D2BBF4 /* elliptic_license.c in Resources */ = {isa = PBXBuildFile; fileRef = B2B83A8F18431DA300D2BBF4 /* elliptic_license.c */; };
+		B2B83A96184336E700D2BBF4 /* base32.c in Sources */ = {isa = PBXBuildFile; fileRef = B2B83A95184336E700D2BBF4 /* base32.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		8DC2EF5B0486A6940098B216 /* EllipticLicense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EllipticLicense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2B83A8E18431DA300D2BBF4 /* elliptic_license.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; name = elliptic_license.h; path = ../c_api/elliptic_license.h; sourceTree = "<group>"; };
 		B2B83A8F18431DA300D2BBF4 /* elliptic_license.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; name = elliptic_license.c; path = ../c_api/elliptic_license.c; sourceTree = "<group>"; };
+		B2B83A95184336E700D2BBF4 /* base32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base32.c; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +133,7 @@
 			children = (
 				B2B83A8E18431DA300D2BBF4 /* elliptic_license.h */,
 				B2B83A8F18431DA300D2BBF4 /* elliptic_license.c */,
+				B2B83A95184336E700D2BBF4 /* base32.c */,
 			);
 			name = "C API";
 			path = ../c_api;
@@ -216,6 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2B83A96184336E700D2BBF4 /* base32.c in Sources */,
 				0A3676A70F7D1A0100B4662A /* EllipticLicense.m in Sources */,
 				0A855A1C0F7EBA4F00AEAB7A /* NSData+ELAdditions.m in Sources */,
 			);

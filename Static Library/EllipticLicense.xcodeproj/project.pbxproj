@@ -14,6 +14,7 @@
 		0A8564630F82C26600AEAB7A /* EllipticLicense.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A85645F0F82C26600AEAB7A /* EllipticLicense.m */; };
 		B2B83A8C18431D9600D2BBF4 /* elliptic_license.h in Headers */ = {isa = PBXBuildFile; fileRef = B2B83A8A18431D9600D2BBF4 /* elliptic_license.h */; };
 		B2B83A8D18431D9600D2BBF4 /* elliptic_license.c in Sources */ = {isa = PBXBuildFile; fileRef = B2B83A8B18431D9600D2BBF4 /* elliptic_license.c */; };
+		B2B83A94184336D300D2BBF4 /* base32.c in Sources */ = {isa = PBXBuildFile; fileRef = B2B83A93184336D300D2BBF4 /* base32.c */; };
 		D2AAC088055469A000DB518D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		32DBCF5E0370ADEE00C91783 /* EllipticLicense_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EllipticLicense_Prefix.pch; sourceTree = "<group>"; };
 		B2B83A8A18431D9600D2BBF4 /* elliptic_license.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = elliptic_license.h; sourceTree = "<group>"; };
 		B2B83A8B18431D9600D2BBF4 /* elliptic_license.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = elliptic_license.c; sourceTree = "<group>"; };
+		B2B83A93184336D300D2BBF4 /* base32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base32.c; sourceTree = "<group>"; };
 		D2AAC07E0554694100DB518D /* libEllipticLicense.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEllipticLicense.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E8BE07B2D77200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -118,6 +120,7 @@
 			children = (
 				B2B83A8A18431D9600D2BBF4 /* elliptic_license.h */,
 				B2B83A8B18431D9600D2BBF4 /* elliptic_license.c */,
+				B2B83A93184336D300D2BBF4 /* base32.c */,
 			);
 			name = "C API";
 			path = ../c_api;
@@ -190,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A8564610F82C26600AEAB7A /* NSData+ELAdditions.m in Sources */,
+				B2B83A94184336D300D2BBF4 /* base32.c in Sources */,
 				0A8564630F82C26600AEAB7A /* EllipticLicense.m in Sources */,
 				B2B83A8D18431D9600D2BBF4 /* elliptic_license.c in Sources */,
 			);
