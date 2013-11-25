@@ -20,11 +20,11 @@
 
 #include "elliptic_license.h"
 
-int el_base32_decode(const uint8_t *encoded, uint8_t *result, int bufSize) {
+int el_base32_decode(const char *encoded, uint8_t *result, int bufSize) {
   int buffer = 0;
   int bitsLeft = 0;
   int count = 0;
-  for (const uint8_t *ptr = encoded; count < bufSize && *ptr; ++ptr) {
+  for (const uint8_t *ptr = (const uint8_t*)encoded; count < bufSize && *ptr; ++ptr) {
     uint8_t ch = *ptr;
     if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n' || ch == '-') {
       continue;
@@ -62,7 +62,7 @@ int el_base32_decode(const uint8_t *encoded, uint8_t *result, int bufSize) {
   return count;
 }
 
-int el_base32_encode(const uint8_t *data, int length, uint8_t *result,
+int el_base32_encode(const uint8_t *data, int length, char *result,
                   int bufSize) {
   if (length < 0 || length > (1 << 28)) {
     return -1;

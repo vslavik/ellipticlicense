@@ -36,7 +36,7 @@
 
     @note If the output buffer is too small, the result will silently be truncated.
  */
-int el_base32_decode(const uint8_t *encoded, uint8_t *result, int bufSize);
+int el_base32_decode(const char *encoded, uint8_t *result, int bufSize);
 
 /**
     Encodes data in base32 (RFC 4648/3548).
@@ -51,6 +51,6 @@ int el_base32_decode(const uint8_t *encoded, uint8_t *result, int bufSize);
 
     @note If the output buffer is too small, the result will silently be truncated.
  */
-int el_base32_encode(const uint8_t *data, int length, uint8_t *result, int bufSize);
+int el_base32_encode(const uint8_t *data, int length, char *result, int bufSize);
 
 #endif // elliptic_license_h
