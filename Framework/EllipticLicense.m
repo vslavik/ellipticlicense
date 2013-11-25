@@ -23,7 +23,6 @@
 
 @interface EllipticLicense (Private)
 - (NSString *)stringSeparatedWithDashes:(NSString *)string;
-- (NSString *)cleanKeyFromLicenseKey:(NSString *)licenseKey;
 @end
 
 
@@ -76,19 +75,16 @@
 	if ([name isEqualToString:ELCurveNameSecp160r1]) {
 		curveName = NID_secp160r1;
 		digestLength = 20; // Full SHA-1 length
-		base32signatureLength = 64;
 		numberOfDashGroupCharacters = 8;
 	}
 	else if ([name isEqualToString:ELCurveNameSecp128r1]) {
 		curveName = NID_secp128r1;
 		digestLength = 16; // SHA-1 is 20 bytes, but since we use 16-byte curve, we must crop it
-		base32signatureLength = 52;
 		numberOfDashGroupCharacters = 4;
 	}
 	else { // default is ELCurveNameSecp112r1
 		curveName = NID_secp112r1;
 		digestLength = 14; // SHA-1 is 20 bytes, but since we use 14-byte curve, we must crop it
-		base32signatureLength = 45;
 		numberOfDashGroupCharacters = 5;
 	}
 }
@@ -181,21 +177,20 @@
 	if (!name || [name length] == 0)
 		return NO;
 
-	NSString *cleanKey = [self cleanKeyFromLicenseKey:licenseKey];
-	
-	// Check length of signature before decoding
-	if ([cleanKey length] != base32signatureLength)
-		return NO;
-	
 	// Check if license key is blocked. Note that we use key without dashes
-	if ([self isBlockedLicenseKey:cleanKey])
+	if ([self isBlockedLicenseKey:licenseKey])
 		return NO;
 	
 	ECDSA_SIG *signature = ECDSA_SIG_new();
 	if (!signature)
 		return NO;
 	
-	NSData *signatureData = [NSData el_dataWithBase32String:cleanKey];
+	NSData *signatureData = [NSData el_dataWithBase32String:licenseKey];
+
+	// Check length of signature before verifying
+	if ([signatureData length] != digestLength * 2)
+		return NO;
+
 	size_t partLen = [signatureData length]/2;
 	signature->r = BN_bin2bn([signatureData bytes], partLen, signature->r);
 	signature->s = BN_bin2bn([signatureData bytes] + partLen, partLen, signature->s);
@@ -216,8 +211,8 @@
 
 - (NSString *)hashStringOfLicenseKey:(NSString *)licenseKey;
 {
-	NSString *cleanLicense = [self cleanKeyFromLicenseKey:licenseKey];
-	return [[NSData el_dataWithStringNoNull:cleanLicense] el_sha1DigestString];
+    NSData *signatureData = [NSData el_dataWithBase32String:licenseKey];
+	return [signatureData el_sha1DigestString];
 }
 
 - (BOOL)isBlockedLicenseKey:(NSString *)licenseKey;
@@ -256,18 +251,6 @@
 		i += numberOfDashGroupCharacters + 1;
 	}	
 	return result;
-}
-
-
-- (NSString *)cleanKeyFromLicenseKey:(NSString *)licenseKey;
-{
-	NSMutableString *cleanKey = [licenseKey mutableCopy];
-	[cleanKey replaceOccurrencesOfString:@"-" withString:@"" options:0 range:NSMakeRange(0, [cleanKey length])];
-	// Fix wrong characters that are not in base32, but can be mistakened // Workaround, better fix base32 decoding to include this
-	[cleanKey replaceOccurrencesOfString:@"0" withString:@"O" options:0 range:NSMakeRange(0, [cleanKey length])];
-	[cleanKey replaceOccurrencesOfString:@"1" withString:@"I" options:0 range:NSMakeRange(0, [cleanKey length])];
-	[cleanKey replaceOccurrencesOfString:@"8" withString:@"B" options:0 range:NSMakeRange(0, [cleanKey length])];
-	return cleanKey;
 }
 
 @end

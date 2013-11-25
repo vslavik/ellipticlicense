@@ -37,8 +37,6 @@ NSString *ELCurveNameSecp160r1 = @"secp160r1";
 	unsigned int curveName; // (internal) name of curve. Use setCurveName to set it with ELCurveName* strings. Default is ELCurveNameSecp112r1 (SECG/WTLS curve over a 112 bit prime field)
 	
 	unsigned int digestLength; // (internal) Length of SHA-1 digest used for signature. Can be less than the real length of SHA-1 for less than 160-bit curves: in this case we'll cut SHA-1 to digestLength.  Changes with setCurveName.
-
-	unsigned int base32signatureLength; // (internal) length of signature without dashes. Changes with setCurveName.
 }
 
 - (id)initWithPublicKey:(NSString *)publicKey;
