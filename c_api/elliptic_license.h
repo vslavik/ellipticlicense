@@ -20,6 +20,10 @@
 #ifndef elliptic_license_h
 #define elliptic_license_h
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 
 /// Type of the elliptic curve used to create the keys
@@ -119,5 +123,9 @@ int el_base32_decode(const char *encoded, uint8_t *result, int bufSize);
     @see el_base32_encode_buffer_size()
  */
 int el_base32_encode(const uint8_t *data, int length, char *result, int bufSize);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // elliptic_license_h
