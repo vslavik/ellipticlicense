@@ -22,6 +22,44 @@
 
 #include <stdint.h>
 
+/// Type of the elliptic curve used to create the keys
+typedef enum
+{
+    el_curve_secp112r1 = 112, ///< 112-bit keys
+    el_curve_secp128r1 = 128, ///< 128-bit keys
+    el_curve_secp160r1 = 160  ///< 160-bit keys
+} el_curve_t;
+
+/// EL context
+typedef struct el_context* el_context_t;
+
+/**
+    Creates a new context for use with other functions.
+
+    @param  curve           Type of the curve - and so key length - to use.
+    @param  publicKeyData   Public key to use.
+    @param  publicKeyLength Length of @a publicKeyData data.
+
+    @return Pointer to the context object or NULL on failure.
+ */
+el_context_t el_create_context(el_curve_t curve,
+                               const uint8_t *publicKeyData, int publicKeyLength);
+
+/// Destroys previously created context
+void el_destroy_context(el_context_t ctxt);
+
+/**
+    Verifies validity of the license key.
+    
+    @param ctxt       EL context.
+    @param licenseKey The key, as a base32-encoded string.
+    @param name       UTF-8 encoded identifier of license holder (e.g. name).
+    
+    @return 0 if the key is invalid, nonzero if valid.
+ */
+int el_verify_license_key(el_context_t ctxt,
+                          const char *licenseKey, const char *name);
+
 
 /**
     Calculates SHA-256 digest of the input, truncated to requested size in bytes.

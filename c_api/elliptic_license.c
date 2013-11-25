@@ -21,7 +21,112 @@
 #include "elliptic_license.h"
 
 #include <string.h>
+
 #include <openssl/sha.h>
+#include <openssl/ec.h>
+#include <openssl/ecdsa.h>
+#include <openssl/obj_mac.h>
+#include <openssl/ossl_typ.h>
+
+
+struct el_context
+{
+    EC_KEY*    ecKey;
+    el_curve_t curve;
+    int        digestLength;
+};
+
+
+el_context_t el_create_context(el_curve_t curve,
+                               const uint8_t *publicKeyData, int publicKeyLength)
+{
+    EC_KEY *key = NULL;
+    int digestLength = 0;
+
+    switch (curve)
+    {
+        case el_curve_secp112r1:
+            key = EC_KEY_new_by_curve_name(NID_secp112r1);
+            digestLength = 14;
+            break;
+        case el_curve_secp128r1:
+            key = EC_KEY_new_by_curve_name(NID_secp128r1);
+            digestLength = 16;
+            break;
+        case el_curve_secp160r1:
+            key = EC_KEY_new_by_curve_name(NID_secp160r1);
+            digestLength = 20;
+            break;
+    }
+
+    if (!key)
+        return NULL;
+    key = o2i_ECPublicKey(&key, &publicKeyData, publicKeyLength);
+    if (!key)
+        return NULL;
+
+    if (!EC_KEY_check_key(key))
+    {
+        EC_KEY_free(key);
+        return NULL;
+    }
+
+    el_context_t ctxt = malloc(sizeof(struct el_context));
+    ctxt->ecKey = key;
+    ctxt->curve = curve;
+    ctxt->digestLength = digestLength;
+    return ctxt;
+}
+
+
+void el_destroy_context(el_context_t ctxt)
+{
+    if (!ctxt)
+        return;
+    if (ctxt->ecKey)
+        EC_KEY_free(ctxt->ecKey);
+    free(ctxt);
+}
+
+
+int el_verify_license_key(el_context_t ctxt,
+                          const char *licenseKey, const char *name)
+{
+    if (!licenseKey || !strlen(licenseKey) || !name || !strlen(name))
+        return 0;
+
+    // TODO: blocked keys checking
+
+    int signatureLength = el_base32_decode_buffer_size(strlen(licenseKey));
+    uint8_t signatureData[signatureLength];
+    signatureLength = el_base32_decode(licenseKey, signatureData, signatureLength);
+
+    // Check length of signature before verifying
+    if (signatureLength != ctxt->digestLength * 2)
+        return 0;
+
+    ECDSA_SIG *signature = ECDSA_SIG_new();
+    if (!signature)
+        return 0;
+
+    size_t partLen = signatureLength / 2;
+    signature->r = BN_bin2bn(signatureData,           partLen, signature->r);
+    signature->s = BN_bin2bn(signatureData + partLen, partLen, signature->s);
+    if (!signature->r || !signature->s)
+    {
+        ECDSA_SIG_free(signature);
+        return 0;
+    }
+
+    uint8_t digest[ctxt->digestLength];
+    el_compute_digest(name, digest, ctxt->digestLength);
+
+    int result = ECDSA_do_verify(digest, ctxt->digestLength, signature, ctxt->ecKey) == 1;
+
+    ECDSA_SIG_free(signature);
+    return result;
+}
+
 
 void el_compute_digest(const char *name, uint8_t *digest, int digestSize)
 {
