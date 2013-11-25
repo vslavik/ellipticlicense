@@ -35,7 +35,7 @@ int el_base32_decode(const char *encoded, uint8_t *result, int bufSize) {
     if (ch == '0') {
       ch = 'O';
     } else if (ch == '1') {
-      ch = 'L';
+      ch = 'I';
     } else if (ch == '8') {
       ch = 'B';
     }
