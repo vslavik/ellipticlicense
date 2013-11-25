@@ -25,8 +25,12 @@
 
 void el_compute_digest(const char *name, uint8_t *digest, int digestSize)
 {
-    uint8_t sha1_digest[SHA_DIGEST_LENGTH];
-    SHA1((const uint8_t*)name, strlen(name), sha1_digest);
+    uint8_t sha256_digest[SHA256_DIGEST_LENGTH];
 
-    memcpy(digest, sha1_digest, digestSize);
+    SHA256_CTX sha256;
+    SHA256_Init(&sha256);
+    SHA256_Update(&sha256, name, strlen(name));
+    SHA256_Final(sha256_digest, &sha256);
+
+    memcpy(digest, sha256_digest, digestSize);
 }

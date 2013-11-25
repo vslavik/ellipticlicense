@@ -24,13 +24,13 @@
 
 
 /**
-    Calculates SHA-1 digest of the input, truncated to requested size in bytes.
+    Calculates SHA-256 digest of the input, truncated to requested size in bytes.
 
     @param name         UTF-8 encoded string to create digest for; typically
                         a customer name or email.
     @param digest       Buffer to write the digest to.
     @param digestSize   Length of the requested digest in bytes. This must be
-                        less or equal to SHA-1 digest size (20 bytes).
+                        less or equal to SHA-256 digest size (32 bytes).
  */
 void el_compute_digest(const char *name, uint8_t *digest, int digestSize);
 
