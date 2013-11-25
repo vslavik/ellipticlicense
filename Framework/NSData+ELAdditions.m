@@ -110,20 +110,4 @@
 	return data;
 }
 
-+ (NSData *)el_dataWithString:(NSString *)string;
-{
-	const char *bytes = [string UTF8String];
-	return [NSData dataWithBytes:bytes length:strlen(bytes)];
-}
-
-+ (NSData *)el_dataWithStringNoNull:(NSString *)string;
-{
-	const char *bytes = [string UTF8String];
-	size_t lengthWithoutNull = strlen(bytes);
-	if (lengthWithoutNull <= 0)
-		return nil;
-	return [NSData dataWithBytes:bytes length:lengthWithoutNull];
-}
-
-
 @end

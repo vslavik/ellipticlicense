@@ -19,3 +19,14 @@
 
 
 #include "elliptic_license.h"
+
+#include <string.h>
+#include <openssl/sha.h>
+
+void el_compute_digest(const char *name, uint8_t *digest, int digestSize)
+{
+    uint8_t sha1_digest[SHA_DIGEST_LENGTH];
+    SHA1((const uint8_t*)name, strlen(name), sha1_digest);
+
+    memcpy(digest, sha1_digest, digestSize);
+}

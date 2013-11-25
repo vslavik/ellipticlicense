@@ -155,10 +155,13 @@
 
 - (NSString *)licenseKeyForName:(NSString *)name;
 {
-	NSData *digest = [[NSData el_dataWithStringNoNull:name] el_sha1Digest];
-	if (!digest)
-		return nil;
-	ECDSA_SIG *signature = ECDSA_do_sign([digest bytes], digestLength, ecKey);
+	if (!name || [name length] == 0)
+		return NO;
+
+    uint8_t digest[digestLength];
+    el_compute_digest([name UTF8String], digest, digestLength);
+
+	ECDSA_SIG *signature = ECDSA_do_sign(digest, digestLength, ecKey);
 	if (signature == NULL)
 		return nil;
 
@@ -198,12 +201,11 @@
 		ECDSA_SIG_free(signature);
 		return NO;		
 	}
-	NSData *digest = [[NSData el_dataWithStringNoNull:name] el_sha1Digest];
-	if ([digest length] < digestLength) {
-		ECDSA_SIG_free(signature);
-		return NO;
-	}
-	BOOL result = ECDSA_do_verify([digest bytes], digestLength, signature, ecKey);
+
+    uint8_t digest[digestLength];
+    el_compute_digest([name UTF8String], digest, digestLength);
+
+	BOOL result = ECDSA_do_verify(digest, digestLength, signature, ecKey);
 
 	ECDSA_SIG_free(signature);
 	return result;

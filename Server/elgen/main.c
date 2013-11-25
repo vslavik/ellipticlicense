@@ -23,7 +23,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-#include <openssl/sha.h>
 #include <openssl/ec.h>
 #include <openssl/ecdsa.h>
 #include <openssl/obj_mac.h>
@@ -130,9 +129,9 @@ int main (int argc, const char * argv[]) {
 		return ERR_WRONG_KEYS;
 	
 	// calculate sha-1
-	unsigned char digest[SHA_DIGEST_LENGTH];
-	SHA1((unsigned char *)name, strlen(name), digest);
-	
+	unsigned char digest[digest_len];
+    el_compute_digest(name, digest, digest_len);
+
 	// sign
 	ECDSA_SIG *sig = ECDSA_do_sign(digest, digest_len, eckey);
 	if (sig == NULL)

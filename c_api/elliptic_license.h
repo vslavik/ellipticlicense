@@ -22,6 +22,18 @@
 
 #include <stdint.h>
 
+
+/**
+    Calculates SHA-1 digest of the input, truncated to requested size in bytes.
+
+    @param name         UTF-8 encoded string to create digest for; typically
+                        a customer name or email.
+    @param digest       Buffer to write the digest to.
+    @param digestSize   Length of the requested digest in bytes. This must be
+                        less or equal to SHA-1 digest size (20 bytes).
+ */
+void el_compute_digest(const char *name, uint8_t *digest, int digestSize);
+
 /**
     Upper bound for the length of decoded base32 data.
 
