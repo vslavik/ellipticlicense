@@ -23,9 +23,22 @@
 #include <stdint.h>
 
 /**
+    Upper bound for the length of decoded base32 data.
+
+    @note Actual length may be smaller because of padding characters
+          (hypnens, whitespace) in the base32-encoded input.
+ */
+static inline int el_base32_decode_buffer_size(int stringLength)
+    { return stringLength * 5 / 8; }
+
+/// Length of data encoded to base32.
+static inline int el_base32_encode_buffer_size(int dataLength)
+    { return (dataLength * 8 + 4) / 5; }
+
+/**
     Decodes base32 (RFC 4648/3548) data.
 
-    In addition to the base32 alphabet, white-space and hyphens are allowed,
+    In addition to the base32 alphabet, whitespace and hyphens are allowed,
     but all other characters are considered invalid.
 
     @param encoded   NULL-terminated string to decode.
@@ -35,6 +48,8 @@
     @return The number of output bytes or -1 on error.
 
     @note If the output buffer is too small, the result will silently be truncated.
+    
+    @see el_base32_decode_buffer_size()
  */
 int el_base32_decode(const char *encoded, uint8_t *result, int bufSize);
 
@@ -50,6 +65,8 @@ int el_base32_decode(const char *encoded, uint8_t *result, int bufSize);
     @return The number of output bytes or -1 on error.
 
     @note If the output buffer is too small, the result will silently be truncated.
+
+    @see el_base32_encode_buffer_size()
  */
 int el_base32_encode(const uint8_t *data, int length, char *result, int bufSize);
 
