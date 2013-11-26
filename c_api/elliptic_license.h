@@ -82,12 +82,10 @@ void el_compute_digest(const char *name, uint8_t *digest, int digestSize);
     @note Actual length may be smaller because of padding characters
           (hypnens, whitespace) in the base32-encoded input.
  */
-static inline int el_base32_decode_buffer_size(int stringLength)
-    { return stringLength * 5 / 8; }
+int el_base32_decode_buffer_size(int stringLength);
 
 /// Length of data encoded to base32.
-static inline int el_base32_encode_buffer_size(int dataLength)
-    { return (dataLength * 8 + 4) / 5; }
+int el_base32_encode_buffer_size(int dataLength);
 
 /**
     Decodes base32 (RFC 4648/3548) data.

@@ -92,38 +92,55 @@ void el_destroy_context(el_context_t ctxt)
 int el_verify_license_key(el_context_t ctxt,
                           const char *licenseKey, const char *name)
 {
+    // TODO: change this back to use C99 variable length arrays once Visual C++
+    //       can deal with it (2013 still can't)
+    ECDSA_SIG *signature = NULL;
+    uint8_t *signatureData = NULL;
+    uint8_t *digest = NULL;
+
     if (!licenseKey || !strlen(licenseKey) || !name || !strlen(name))
         return 0;
 
     // TODO: blocked keys checking
 
     int signatureLength = el_base32_decode_buffer_size(strlen(licenseKey));
-    uint8_t signatureData[signatureLength];
+
+    signatureData = malloc(signatureLength);
     signatureLength = el_base32_decode(licenseKey, signatureData, signatureLength);
 
     // Check length of signature before verifying
     if (signatureLength != ctxt->digestLength * 2)
+    {
+        free(signatureData);
         return 0;
+    }
 
-    ECDSA_SIG *signature = ECDSA_SIG_new();
+    signature = ECDSA_SIG_new();
     if (!signature)
+    {
+        free(signatureData);
         return 0;
+    }
 
     size_t partLen = signatureLength / 2;
     signature->r = BN_bin2bn(signatureData,           partLen, signature->r);
     signature->s = BN_bin2bn(signatureData + partLen, partLen, signature->s);
     if (!signature->r || !signature->s)
     {
+        free(signatureData);
         ECDSA_SIG_free(signature);
         return 0;
     }
 
-    uint8_t digest[ctxt->digestLength];
+    digest = malloc(ctxt->digestLength);
     el_compute_digest(name, digest, ctxt->digestLength);
 
     int result = ECDSA_do_verify(digest, ctxt->digestLength, signature, ctxt->ecKey) == 1;
 
+    free(signatureData);
+    free(digest);
     ECDSA_SIG_free(signature);
+
     return result;
 }
 

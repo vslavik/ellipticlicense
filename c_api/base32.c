@@ -20,6 +20,16 @@
 
 #include "elliptic_license.h"
 
+int el_base32_decode_buffer_size(int stringLength)
+{
+    return stringLength * 5 / 8;
+}
+
+int el_base32_encode_buffer_size(int dataLength)
+{
+    return (dataLength * 8 + 4) / 5;
+}
+
 int el_base32_decode(const char *encoded, uint8_t *result, int bufSize) {
   int buffer = 0;
   int bitsLeft = 0;
