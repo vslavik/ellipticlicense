@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0A91F0F612A7ADC500909BFE /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A91F0F512A7ADC500909BFE /* libcrypto.dylib */; };
+		3EF7345018FBC71300605E07 /* elliptic_license.c in Sources */ = {isa = PBXBuildFile; fileRef = 3EF7344F18FBC71300605E07 /* elliptic_license.c */; };
 		8DD76FAC0486AB0100D96B5E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.c */; settings = {ATTRIBUTES = (); }; };
 		8DD76FB00486AB0100D96B5E /* elgen.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6A0FF2C0290799A04C91782 /* elgen.1 */; };
 		B2B83A98184336F700D2BBF4 /* base32.c in Sources */ = {isa = PBXBuildFile; fileRef = B2B83A97184336F700D2BBF4 /* base32.c */; };
-		B2B83A9B1843370000D2BBF4 /* elliptic_license.c in Sources */ = {isa = PBXBuildFile; fileRef = B2B83A9A1843370000D2BBF4 /* elliptic_license.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,10 +30,10 @@
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		0A91F0F512A7ADC500909BFE /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
+		3EF7344E18FBC71300605E07 /* elliptic_license.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = elliptic_license.h; path = /Users/tsenkov/repos/ellipticlicense/c_api/../c_api/elliptic_license.h; sourceTree = "<absolute>"; };
+		3EF7344F18FBC71300605E07 /* elliptic_license.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = elliptic_license.c; path = /Users/tsenkov/repos/ellipticlicense/c_api/../c_api/elliptic_license.c; sourceTree = "<absolute>"; };
 		8DD76FB20486AB0100D96B5E /* elgen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = elgen; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2B83A97184336F700D2BBF4 /* base32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = base32.c; path = ../../c_api/base32.c; sourceTree = "<group>"; };
-		B2B83A991843370000D2BBF4 /* elliptic_license.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = elliptic_license.h; path = /Users/vaclav/Development/poedit/deps/licensing/ellipticlicense/c_api/../c_api/elliptic_license.h; sourceTree = "<absolute>"; };
-		B2B83A9A1843370000D2BBF4 /* elliptic_license.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = elliptic_license.c; path = /Users/vaclav/Development/poedit/deps/licensing/ellipticlicense/c_api/../c_api/elliptic_license.c; sourceTree = "<absolute>"; };
 		C6A0FF2C0290799A04C91782 /* elgen.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = elgen.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,8 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				08FB7796FE84155DC02AAC07 /* main.c */,
-				B2B83A991843370000D2BBF4 /* elliptic_license.h */,
-				B2B83A9A1843370000D2BBF4 /* elliptic_license.c */,
+				3EF7344E18FBC71300605E07 /* elliptic_license.h */,
+				3EF7344F18FBC71300605E07 /* elliptic_license.c */,
 				B2B83A97184336F700D2BBF4 /* base32.c */,
 			);
 			name = Source;
@@ -141,7 +141,7 @@
 			files = (
 				8DD76FAC0486AB0100D96B5E /* main.c in Sources */,
 				B2B83A98184336F700D2BBF4 /* base32.c in Sources */,
-				B2B83A9B1843370000D2BBF4 /* elliptic_license.c in Sources */,
+				3EF7345018FBC71300605E07 /* elliptic_license.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
