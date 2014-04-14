@@ -12,6 +12,7 @@
 		0A76B9B5106FDF330048097B /* libcrypto.0.9.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A76B9B4106FDF330048097B /* libcrypto.0.9.8.dylib */; };
 		0A855A1B0F7EBA4F00AEAB7A /* NSData+ELAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A855A190F7EBA4F00AEAB7A /* NSData+ELAdditions.h */; };
 		0A855A1C0F7EBA4F00AEAB7A /* NSData+ELAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A855A1A0F7EBA4F00AEAB7A /* NSData+ELAdditions.m */; };
+		3EF7345118FBC73500605E07 /* elliptic_license.c in Sources */ = {isa = PBXBuildFile; fileRef = B2B83A8F18431DA300D2BBF4 /* elliptic_license.c */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		B2B83A9118431DA300D2BBF4 /* elliptic_license.h in Resources */ = {isa = PBXBuildFile; fileRef = B2B83A8E18431DA300D2BBF4 /* elliptic_license.h */; };
@@ -32,8 +33,8 @@
 		32DBCF5E0370ADEE00C91783 /* EllipticLicense_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EllipticLicense_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* EllipticLicense.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EllipticLicense.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B2B83A8E18431DA300D2BBF4 /* elliptic_license.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; name = elliptic_license.h; path = ../c_api/elliptic_license.h; sourceTree = "<group>"; };
-		B2B83A8F18431DA300D2BBF4 /* elliptic_license.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; name = elliptic_license.c; path = ../c_api/elliptic_license.c; sourceTree = "<group>"; };
+		B2B83A8E18431DA300D2BBF4 /* elliptic_license.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = elliptic_license.h; path = ../c_api/elliptic_license.h; sourceTree = "<group>"; };
+		B2B83A8F18431DA300D2BBF4 /* elliptic_license.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = elliptic_license.c; path = ../c_api/elliptic_license.c; sourceTree = "<group>"; };
 		B2B83A95184336E700D2BBF4 /* base32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base32.c; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -219,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EF7345118FBC73500605E07 /* elliptic_license.c in Sources */,
 				B2B83A96184336E700D2BBF4 /* base32.c in Sources */,
 				0A3676A70F7D1A0100B4662A /* EllipticLicense.m in Sources */,
 				0A855A1C0F7EBA4F00AEAB7A /* NSData+ELAdditions.m in Sources */,
@@ -294,7 +296,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_ENABLE_OBJC_GC = supported;
+				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -310,7 +312,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_ENABLE_OBJC_GC = supported;
+				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "../openssl/include/**";
