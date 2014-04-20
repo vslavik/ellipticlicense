@@ -84,7 +84,11 @@ void el_compute_digest(const char *name, uint8_t *digest, int digestSize);
  */
 int el_base32_decode_buffer_size(int stringLength);
 
-/// Length of data encoded to base32.
+/**
+    Size of the buffer needed to encode data of given length to base32.
+    
+    @note The returned value includes space for the terminating NULL character.
+ */
 int el_base32_encode_buffer_size(int dataLength);
 
 /**

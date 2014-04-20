@@ -155,7 +155,7 @@ int main (int argc, const char * argv[]) {
         ECDSA_SIG_free(sig);
     }
 	
-	size_t b32len = el_base32_encode_buffer_size(signatureLength) + 1;
+	size_t b32len = el_base32_encode_buffer_size(signatureLength);
 	char *base32 = OPENSSL_malloc(b32len);
 	bzero(base32, b32len);
 

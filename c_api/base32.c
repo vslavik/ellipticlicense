@@ -27,7 +27,7 @@ int el_base32_decode_buffer_size(int stringLength)
 
 int el_base32_encode_buffer_size(int dataLength)
 {
-    return (dataLength * 8 + 4) / 5;
+    return (dataLength * 8 + 4) / 5 + 1/*for terminating NULL*/;
 }
 
 int el_base32_decode(const char *encoded, uint8_t *result, int bufSize) {

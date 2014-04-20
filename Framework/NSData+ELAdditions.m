@@ -49,7 +49,7 @@
 	const uint8_t *bytes = [self bytes];
 	int bytesLen = [self length];
 
-	int charsLen = el_base32_encode_buffer_size(bytesLen) + 1/*for null*/;
+	int charsLen = el_base32_encode_buffer_size(bytesLen);
 	char chars[charsLen];
 
     charsLen = el_base32_encode(bytes, bytesLen, chars, charsLen);
