@@ -170,6 +170,8 @@
 	unsigned char *signatureBytes = OPENSSL_malloc(rlen+slen);
 	BN_bn2bin(signature->r, signatureBytes);
 	BN_bn2bin(signature->s, signatureBytes+rlen); // join two values into signatureBytes
+	ECDSA_SIG_free(signature);
+
 	NSMutableData *signatureData = [NSMutableData dataWithBytesNoCopy:signatureBytes length:rlen+slen];
 
 	return [self stringSeparatedWithDashes:[signatureData el_base32String]];
@@ -191,8 +193,10 @@
 	NSData *signatureData = [NSData el_dataWithBase32String:licenseKey];
 
 	// Check length of signature before verifying
-	if ([signatureData length] != digestLength * 2)
+	if ([signatureData length] != digestLength * 2) {
+		ECDSA_SIG_free(signature);
 		return NO;
+    }
 
 	size_t partLen = [signatureData length]/2;
 	signature->r = BN_bin2bn([signatureData bytes], partLen, signature->r);
