@@ -161,18 +161,29 @@
     uint8_t digest[digestLength];
     el_compute_digest([name UTF8String], digest, digestLength);
 
-	ECDSA_SIG *signature = ECDSA_do_sign(digest, digestLength, ecKey);
-	if (signature == NULL)
-		return nil;
+    size_t signatureLength = 2 * digestLength;
+    unsigned char *signatureBytes = OPENSSL_malloc(signatureLength);
 
-	size_t rlen = BN_num_bytes(signature->r);
-	size_t slen = BN_num_bytes(signature->s);
-	unsigned char *signatureBytes = OPENSSL_malloc(rlen+slen);
-	BN_bn2bin(signature->r, signatureBytes);
-	BN_bn2bin(signature->s, signatureBytes+rlen); // join two values into signatureBytes
-	ECDSA_SIG_free(signature);
+    // The length of ECDSA_SIG's r and s components may be shorter than digestLength rarely
+    // (see docs, incl. BN_num_bytes). We want fixed-length license keys and the rest of
+    // EL's code can't deal with zero-padded signatures, so just discard these results.
+    for (;;) {
+        ECDSA_SIG *signature = ECDSA_do_sign(digest, digestLength, ecKey);
+        if (signature == NULL)
+            return nil;
+        size_t rlen = BN_num_bytes(signature->r);
+        size_t slen = BN_num_bytes(signature->s);
+        if (rlen + slen == signatureLength) {
+            BN_bn2bin(signature->r, signatureBytes);
+            BN_bn2bin(signature->s, signatureBytes+rlen); // join two values into signatureBytes
+            ECDSA_SIG_free(signature);
+            break;
+        }
+        // else: try again
+        ECDSA_SIG_free(signature);
+    }
 
-	NSMutableData *signatureData = [NSMutableData dataWithBytesNoCopy:signatureBytes length:rlen+slen];
+	NSMutableData *signatureData = [NSMutableData dataWithBytesNoCopy:signatureBytes length:signatureLength];
 
 	return [self stringSeparatedWithDashes:[signatureData el_base32String]];
 }

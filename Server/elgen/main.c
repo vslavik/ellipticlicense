@@ -133,27 +133,36 @@ int main (int argc, const char * argv[]) {
     el_compute_digest(name, digest, digest_len);
 
 	// sign
-	ECDSA_SIG *sig = ECDSA_do_sign(digest, digest_len, eckey);
-	if (sig == NULL)
-		return ERR_SIGNING;
+    size_t signatureLength = 2 * digest_len;
+    unsigned char *signatureBytes = OPENSSL_malloc(signatureLength);
+
+    // The length of ECDSA_SIG's r and s components may be shorter than digestLength rarely
+    // (see docs, incl. BN_num_bytes). We want fixed-length license keys, so just discard
+    // these results.
+    for (;;) {
+        ECDSA_SIG *sig = ECDSA_do_sign(digest, digest_len, eckey);
+        if (sig == NULL)
+            return ERR_SIGNING;
+        size_t rlen = BN_num_bytes(sig->r);
+        size_t slen = BN_num_bytes(sig->s);
+        if (rlen + slen == signatureLength) {
+            BN_bn2bin(sig->r, signatureBytes);
+            BN_bn2bin(sig->s, signatureBytes+rlen); // join two values into signatureBytes
+            ECDSA_SIG_free(sig);
+            break;
+        }
+        // else: try again
+        ECDSA_SIG_free(sig);
+    }
 	
-	size_t rlen = BN_num_bytes(sig->r);
-	size_t slen = BN_num_bytes(sig->s);
-	size_t binlen = rlen + slen;
-	bin = OPENSSL_malloc(binlen);
-	bzero(bin, binlen);
-	BN_bn2bin(sig->r, bin);
-	BN_bn2bin(sig->s, bin + rlen); // join two values into bin
-	ECDSA_SIG_free(sig);
-	
-	size_t b32len = el_base32_encode_buffer_size(binlen);
+	size_t b32len = el_base32_encode_buffer_size(signatureLength);
 	char *base32 = OPENSSL_malloc(b32len);
 	bzero(base32, b32len);
 
-    el_base32_encode(bin, binlen, base32, b32len);
+    el_base32_encode(signatureBytes, signatureLength, base32, b32len);
 	printf("%s", base32);
 	
-	OPENSSL_free(bin);
+	OPENSSL_free(signatureBytes);
 	OPENSSL_free(base32);
 	return 0;
 }
