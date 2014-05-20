@@ -103,7 +103,7 @@ int el_verify_license_key(el_context_t ctxt,
 
     // TODO: blocked keys checking
 
-    int signatureLength = el_base32_decode_buffer_size(strlen(licenseKey));
+    int signatureLength = el_base32_decode_buffer_size((int)strlen(licenseKey));
 
     signatureData = malloc(signatureLength);
     signatureLength = el_base32_decode(licenseKey, signatureData, signatureLength);
@@ -122,7 +122,7 @@ int el_verify_license_key(el_context_t ctxt,
         return 0;
     }
 
-    size_t partLen = signatureLength / 2;
+    int partLen = signatureLength / 2;
     signature->r = BN_bin2bn(signatureData,           partLen, signature->r);
     signature->s = BN_bin2bn(signatureData + partLen, partLen, signature->s);
     if (!signature->r || !signature->s)
