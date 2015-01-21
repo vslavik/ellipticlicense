@@ -26,6 +26,11 @@ if (!isset($name) || strlen($name) == 0) {
 	exit(8);	
 }
 
+// Quantity of licenses
+$quantity = @$_REQUEST["quantity"];
+if (!isset($quantity))
+	$quantity = 1;
+
 
 // --- don't change anything after this line --- 
 
@@ -48,6 +53,9 @@ function add_dashes($s)
 	return implode("-", str_split($s, $number_chars_in_dash_group));
 }
 
+
+for ($i = 0; $i < $quantity; $i++)
+{
 
 $descriptorspec = array(
    0 => array("pipe", "r"),
@@ -74,5 +82,7 @@ if (is_resource($process)) {
 $out = str_replace("{#name}", $name, $output_format);
 $out = str_replace("{#key}", add_dashes($key), $out);
 print $out;
+
+}
 
 ?>
