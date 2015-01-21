@@ -3,32 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A855C300F80C8F800AEAB7A /* EllipticLicense.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3677530F7D287C00B4662A /* EllipticLicense.framework */; };
 		8DD76F9A0486AA7600D96B5E /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* Test.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		8DD76F9F0486AA7600D96B5E /* Test.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* Test.1 */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		0A3677520F7D287C00B4662A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0A36774E0F7D287C00B4662A /* EllipticLicense.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
-			remoteInfo = EllipticLicense;
-		};
-		0A855C630F80CBE900AEAB7A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0A36774E0F7D287C00B4662A /* EllipticLicense.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = EllipticLicense;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		0A3677940F7D2B3C00B4662A /* CopyFiles */ = {
@@ -55,7 +37,6 @@
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		0A36774E0F7D287C00B4662A /* EllipticLicense.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EllipticLicense.xcodeproj; path = ../Framework/EllipticLicense.xcodeproj; sourceTree = SOURCE_ROOT; };
 		0A36791E0F7E489D00B4662A /* EllipticLicense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EllipticLicense.h; path = ../EllipticLicense.h; sourceTree = SOURCE_ROOT; };
 		32A70AAB03705E1F00C91783 /* Test_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test_Prefix.pch; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Test; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,7 +48,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A855C300F80C8F800AEAB7A /* EllipticLicense.framework in Frameworks */,
 				8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,7 +58,6 @@
 		08FB7794FE84155DC02AAC07 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				0A36774E0F7D287C00B4662A /* EllipticLicense.xcodeproj */,
 				08FB7795FE84155DC02AAC07 /* Source */,
 				C6859EA2029092E104C91782 /* Documentation */,
 				08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */,
@@ -103,14 +82,6 @@
 				08FB779EFE84155DC02AAC07 /* Foundation.framework */,
 			);
 			name = "External Frameworks and Libraries";
-			sourceTree = "<group>";
-		};
-		0A36774F0F7D287C00B4662A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0A3677530F7D287C00B4662A /* EllipticLicense.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
@@ -144,7 +115,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				0A855C640F80CBE900AEAB7A /* PBXTargetDependency */,
 			);
 			name = Test;
 			productInstallPath = "$(HOME)/bin";
@@ -158,9 +128,10 @@
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0610;
 			};
 			buildConfigurationList = 1DEB927808733DD40010E9CD /* Build configuration list for PBXProject "Test" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -168,28 +139,12 @@
 			);
 			mainGroup = 08FB7794FE84155DC02AAC07 /* Test */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 0A36774F0F7D287C00B4662A /* Products */;
-					ProjectRef = 0A36774E0F7D287C00B4662A /* EllipticLicense.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8DD76F960486AA7600D96B5E /* Test */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		0A3677530F7D287C00B4662A /* EllipticLicense.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = EllipticLicense.framework;
-			remoteRef = 0A3677520F7D287C00B4662A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DD76F990486AA7600D96B5E /* Sources */ = {
@@ -201,14 +156,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0A855C640F80CBE900AEAB7A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = EllipticLicense;
-			targetProxy = 0A855C630F80CBE900AEAB7A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB927508733DD40010E9CD /* Debug */ = {

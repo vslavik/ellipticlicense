@@ -5,9 +5,6 @@
       location = "container:EllipticLicenseDeveloper/EllipticLicenseDeveloper.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Static Library/EllipticLicense.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Framework/EllipticLicense.xcodeproj">
    </FileRef>
    <FileRef
