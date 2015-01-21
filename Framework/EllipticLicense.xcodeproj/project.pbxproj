@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A76B9C5106FE06A0048097B /* libcrypto.0.9.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A76B9C4106FE06A0048097B /* libcrypto.0.9.8.dylib */; };
 		0A8564600F82C26600AEAB7A /* NSData+ELAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A85645C0F82C26600AEAB7A /* NSData+ELAdditions.h */; };
 		0A8564610F82C26600AEAB7A /* NSData+ELAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A85645D0F82C26600AEAB7A /* NSData+ELAdditions.m */; };
 		0A8564620F82C26600AEAB7A /* EllipticLicense.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A85645E0F82C26600AEAB7A /* EllipticLicense.h */; };
@@ -41,7 +40,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC088055469A000DB518D /* Cocoa.framework in Frameworks */,
-				0A76B9C5106FE06A0048097B /* libcrypto.0.9.8.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

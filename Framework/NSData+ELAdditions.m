@@ -24,8 +24,15 @@
 
 
 #import "NSData+ELAdditions.h"
-#import "openssl/sha.h"
+
 #import "elliptic_license.h"
+
+#ifdef __clang__
+// OpenSSL is deprecated in OS X, but still good enough for licensing checks:
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
+#import "openssl/sha.h"
 
 @implementation NSData (ELAdditions)
 

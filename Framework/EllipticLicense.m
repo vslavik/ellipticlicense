@@ -18,8 +18,16 @@
 
 #import "EllipticLicense.h"
 #import "NSData+ELAdditions.h"
+
+#ifdef __clang__
+// OpenSSL is deprecated in OS X, but still good enough for licensing checks:
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
 #include <openssl/err.h>
 #include <openssl/evp.h>
+
+#include "elliptic_license.h"
 
 @interface EllipticLicense (Private)
 - (NSString *)stringSeparatedWithDashes:(NSString *)string;

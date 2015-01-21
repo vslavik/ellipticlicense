@@ -22,6 +22,11 @@
 
 #include <string.h>
 
+#ifdef __clang__
+// OpenSSL is deprecated in OS X, but still good enough for licensing checks:
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
 #include <openssl/sha.h>
 #include <openssl/ec.h>
 #include <openssl/ecdsa.h>
