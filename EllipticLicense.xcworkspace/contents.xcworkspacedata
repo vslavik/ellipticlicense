@@ -10,7 +10,4 @@
    <FileRef
       location = "group:Test/Test.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Server/elgen/elgen.xcodeproj">
-   </FileRef>
 </Workspace>
