@@ -172,9 +172,12 @@
 			code = [NSMutableString stringWithString:[productStore obfuscatedPublicKeyCode]];
 			break;
 		case 1:
-			code = [NSMutableString stringWithString:[productStore blockedLicenseKeysAsCode]];
+			code = [NSMutableString stringWithString:[productStore blockedLicenseKeysAsCodeInObjC]];
 			break;
-		case 2: // Initialization Example
+        case 2:
+			code = [NSMutableString stringWithString:[productStore blockedLicenseKeysAsCodeInC]];
+            break;
+		case 3: // Initialization Example
 		{
 			NSString *curveName;
 			switch([productStore curveNameTag]) {
@@ -187,7 +190,7 @@
 				"// ... somewhere inside a method of your class ... \n"
 				"%@\n"
 				"%@\n\n"
-					"\tEllipticLicense *ellipticLicense = [[EllipticLicense alloc] initWithPublicKey:key curveName:%@];\n", [productStore obfuscatedPublicKeyCode], [productStore blockedLicenseKeysAsCode], curveName];
+					"\tEllipticLicense *ellipticLicense = [[EllipticLicense alloc] initWithPublicKey:key curveName:%@];\n", [productStore obfuscatedPublicKeyCode], [productStore blockedLicenseKeysAsCodeInObjC], curveName];
 			if ([[productStore blockedLicenseKeys] count] > 0)
 				[code appendString:@"\t[ellipticLicense setBlockedKeys:blockedKeys];\n"];
 
@@ -195,7 +198,7 @@
 				"\t[ellipticLicense release];\n"];
 			break;
 		}
-		case 3:
+		case 4:
 		{
 			code = [NSMutableString string];
 			[code appendFormat:@"<?php\n\n"

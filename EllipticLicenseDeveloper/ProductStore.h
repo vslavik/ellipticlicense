@@ -47,6 +47,7 @@
 
 - (void)generateKeys;
 - (NSString *)generateLicenseKeyForName:(NSString *)name;
-- (NSString *)blockedLicenseKeysAsCode;
+- (NSString *)blockedLicenseKeysAsCodeInObjC;
+- (NSString *)blockedLicenseKeysAsCodeInC;
 
 @end

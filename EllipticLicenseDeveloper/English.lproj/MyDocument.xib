@@ -578,15 +578,16 @@ License key: </string>
                                         <popUpButton verticalHuggingPriority="750" id="100228">
                                             <rect key="frame" x="7" y="399" width="244" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Obfuscated Public Key" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="100274" id="100229">
+                                            <popUpButtonCell key="cell" type="push" title="Blocked Keys (C API)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="2" imageScaling="proportionallyDown" inset="2" selectedItem="GGN-ht-ILB" id="100229">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="menu"/>
                                                 <menu key="menu" title="OtherViews" id="100230">
                                                     <items>
-                                                        <menuItem title="Obfuscated Public Key" state="on" indentationLevel="1" id="100274"/>
+                                                        <menuItem title="Obfuscated Public Key" indentationLevel="1" id="100274"/>
                                                         <menuItem title="Blocked Keys" tag="1" indentationLevel="1" id="100233"/>
-                                                        <menuItem title="Usage Example" tag="2" indentationLevel="1" id="100232"/>
-                                                        <menuItem title="ELConfig.php" tag="3" indentationLevel="1" id="100273"/>
+                                                        <menuItem title="Blocked Keys (C API)" state="on" tag="2" indentationLevel="1" id="GGN-ht-ILB"/>
+                                                        <menuItem title="Usage Example" tag="3" indentationLevel="1" id="100232"/>
+                                                        <menuItem title="ELConfig.php" tag="4" indentationLevel="1" id="100273"/>
                                                     </items>
                                                 </menu>
                                             </popUpButtonCell>

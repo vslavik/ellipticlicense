@@ -218,7 +218,7 @@ NSString *exampleKeyString = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	return code;
 }
 
-- (NSString *)blockedLicenseKeysAsCode;
+- (NSString *)blockedLicenseKeysAsCodeInObjC
 {
 	if ([[self blockedLicenseKeys] count] == 0)
 		return @"\t// No blocked keys";
@@ -231,6 +231,29 @@ NSString *exampleKeyString = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		[code appendFormat:@"\t[blockedKeys addObject:@\"%@\"];\n", [obj objectForKey:@"hash"]];
 	}
 	[code appendString:@"\t// *** End Blocked Keys ***\n"];
+	return code;
+}
+
+- (NSString *)blockedLicenseKeysAsCodeInC
+{
+	if ([[self blockedLicenseKeys] count] == 0)
+		return @"\t// No blocked keys";
+	NSMutableString *code = [NSMutableString string];
+	[code appendString:@"static const uint8_t blocked_keys[] = {\n"];
+	for (id obj in [self blockedLicenseKeys]) {
+        NSString *hash = [obj objectForKey:@"hash"];
+        NSMutableString *hashC = [NSMutableString string];
+        unsigned int len = [hash length];
+        for (int i = 0; i < len; i++)
+        {
+            int c1 = [hash characterAtIndex:i++];
+            int c2 = [hash characterAtIndex:i];
+            [hashC appendFormat:@"0x%c%c,", c1, c2];
+        }
+		[code appendFormat:@"  %@  // %@\n", hashC, [obj objectForKey:@"key"]];
+	}
+	[code appendString:@"};\n"];
+    [code appendString:@"el_set_blocked_keys(ctxt, blocked_keys, sizeof(blocked_keys));\n"];
 	return code;
 }
 
