@@ -163,7 +163,7 @@ int main (int argc, const char * argv[]) {
 	
 	size_t b32len = el_base32_encode_buffer_size(signatureLength);
 	char *base32 = OPENSSL_malloc(b32len);
-	bzero(base32, b32len);
+	memset(base32, 0, b32len);
 
     el_base32_encode(signatureBytes, signatureLength, base32, b32len);
 	printf("%s", base32);
