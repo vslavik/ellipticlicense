@@ -53,6 +53,37 @@ el_context_t el_create_context(el_curve_t curve,
 void el_destroy_context(el_context_t ctxt);
 
 /**
+    Sets list of blocked (blacklisted) keys that should not be accepted.
+
+    Typically, this functionality is used to block keys for refunded purchases
+    or pirated keys so that they aren't recognized as valid anymore.
+
+    The @a keyHashes array contains SHA-1 hashes of blocked keys (20 bytes per
+    hash). The hashes are computed from license keys (not names) by first
+    decoding the user-entered key as base32 (see el_base32_decode()) and then
+    calculating SHA-1 has of the decoded data.
+
+    The @a keyHashes pointer must remain valid as long as @a ctxt is being used;
+    this function does not make a copy.
+
+    Example:
+    
+        static const uint8_t blocked_keys[] = {
+          // Key A7MS6-VWIW5-35WFV-72XMU-FLGMH-CTGTJ-FPHYX-DUMTF-V3CQY:
+          0xE9,0x4D,0x1B,0xFC,0x06,0xCB,0x97,0x8F,0xE3,0xC6,0xF9,0xBD,0x25,0x51,0xB1,0xA9,0xEA,0xFF,0x66,0x18,
+          // Key BMLMP-LKIFU-V65IW-V4A6D-EDFRG-OFGWS-4MA5X-EGFQM-KC2MI:
+          0xBC,0x7D,0x4D,0x63,0xB3,0xBA,0xFA,0x53,0xFA,0xC0,0x42,0x8E,0x97,0xDA,0x60,0x21,0xB9,0x45,0x7A,0x68
+        };
+        el_set_blocked_keys(ctxt, blocked_keys, sizeof(blocked_keys));
+
+    @param ctxt       EL context.
+    @param keyHashes  Array of SHA-1 hashes of blacklisted keys.
+    @param dataSize   Size (in bytes) of @a keyHashes array.
+ */
+void el_set_blocked_keys(el_context_t ctxt,
+                         const uint8_t *keyHashes, int dataSize);
+
+/**
     Verifies validity of the license key.
     
     @param ctxt       EL context.

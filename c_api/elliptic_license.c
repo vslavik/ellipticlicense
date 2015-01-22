@@ -36,9 +36,11 @@
 
 struct el_context
 {
-    EC_KEY*    ecKey;
-    el_curve_t curve;
-    int        digestLength;
+    EC_KEY*        ecKey;
+    el_curve_t     curve;
+    int            digestLength;
+    const uint8_t *blockedKeys;
+    int            blockedKeysCount;
 };
 
 
@@ -80,6 +82,8 @@ el_context_t el_create_context(el_curve_t curve,
     ctxt->ecKey = key;
     ctxt->curve = curve;
     ctxt->digestLength = digestLength;
+    ctxt->blockedKeys = NULL;
+    ctxt->blockedKeysCount = 0;
     return ctxt;
 }
 
@@ -94,6 +98,14 @@ void el_destroy_context(el_context_t ctxt)
 }
 
 
+void el_set_blocked_keys(el_context_t ctxt,
+                         const uint8_t *keyHashes, int dataSize)
+{
+    ctxt->blockedKeys = keyHashes;
+    ctxt->blockedKeysCount = dataSize / SHA_DIGEST_LENGTH;
+}
+
+
 int el_verify_license_key(el_context_t ctxt,
                           const char *licenseKey, const char *name)
 {
@@ -105,8 +117,6 @@ int el_verify_license_key(el_context_t ctxt,
 
     if (!licenseKey || !strlen(licenseKey) || !name || !strlen(name))
         return 0;
-
-    // TODO: blocked keys checking
 
     int signatureLength = el_base32_decode_buffer_size((int)strlen(licenseKey));
 
@@ -141,6 +151,22 @@ int el_verify_license_key(el_context_t ctxt,
     el_compute_digest(name, digest, ctxt->digestLength);
 
     int result = ECDSA_do_verify(digest, ctxt->digestLength, signature, ctxt->ecKey) == 1;
+
+    // If the key was accepted, check it against a blacklist of blocked keys:
+    if (result && ctxt->blockedKeys)
+    {
+        unsigned char sha1hash[SHA_DIGEST_LENGTH];
+        SHA1(signatureData, signatureLength, sha1hash);
+        const uint8_t *ptr = ctxt->blockedKeys;
+        for (int i = 0; i < ctxt->blockedKeysCount; i++, ptr += SHA_DIGEST_LENGTH)
+        {
+            if (memcmp(sha1hash, ptr, SHA_DIGEST_LENGTH) == 0)
+            {
+                result = 0;
+                break;
+            }
+        }
+    }
 
     free(signatureData);
     free(digest);
