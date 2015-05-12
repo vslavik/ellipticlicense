@@ -41,7 +41,7 @@
 	if (! [encoded canBeConvertedToEncoding:NSASCIIStringEncoding]) return nil;
 	const char *chars = [encoded UTF8String]; // avoids using characterAtIndex.
 
-	int bytesLen = el_base32_decode_buffer_size(strlen(chars));
+	int bytesLen = el_base32_decode_buffer_size((int)strlen(chars));
 	uint8_t bytes[bytesLen];
 
     bytesLen = el_base32_decode(chars, bytes, bytesLen);
@@ -54,7 +54,7 @@
 - (NSString *)el_base32String;
 {
 	const uint8_t *bytes = [self bytes];
-	int bytesLen = [self length];
+	int bytesLen = (int)[self length];
 
 	int charsLen = el_base32_encode_buffer_size(bytesLen);
 	char chars[charsLen];

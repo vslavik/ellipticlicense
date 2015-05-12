@@ -217,7 +217,7 @@
 		return NO;
     }
 
-	size_t partLen = [signatureData length]/2;
+	int partLen = (int)[signatureData length]/2;
 	signature->r = BN_bin2bn([signatureData bytes], partLen, signature->r);
 	signature->s = BN_bin2bn([signatureData bytes] + partLen, partLen, signature->s);
 	if (!signature->r || !signature->s) {
