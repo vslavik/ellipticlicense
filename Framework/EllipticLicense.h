@@ -23,9 +23,9 @@
 #include <openssl/obj_mac.h>
 #include <openssl/ossl_typ.h>
 
-NSString *ELCurveNameSecp112r1 = @"secp112r1";
-NSString *ELCurveNameSecp128r1 = @"secp128r1";
-NSString *ELCurveNameSecp160r1 = @"secp160r1";
+static NSString *ELCurveNameSecp112r1 = @"secp112r1";
+static NSString *ELCurveNameSecp128r1 = @"secp128r1";
+static NSString *ELCurveNameSecp160r1 = @"secp160r1";
 
 @interface EllipticLicense : NSObject {
 	EC_KEY *ecKey;
