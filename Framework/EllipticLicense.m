@@ -29,6 +29,10 @@
 
 #include "elliptic_license.h"
 
+NSString *ELCurveNameSecp112r1 = @"secp112r1";
+NSString *ELCurveNameSecp128r1 = @"secp128r1";
+NSString *ELCurveNameSecp160r1 = @"secp160r1";
+
 @interface EllipticLicense (Private)
 - (NSString *)stringSeparatedWithDashes:(NSString *)string;
 @end
