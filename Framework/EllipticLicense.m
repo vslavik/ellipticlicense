@@ -29,6 +29,10 @@
 
 #include "elliptic_license.h"
 
+NSString *ELCurveNameSecp112r1 = @"secp112r1";
+NSString *ELCurveNameSecp128r1 = @"secp128r1";
+NSString *ELCurveNameSecp160r1 = @"secp160r1";
+
 @interface EllipticLicense (Private)
 - (NSString *)stringSeparatedWithDashes:(NSString *)string;
 @end
@@ -217,7 +221,7 @@
 		return NO;
     }
 
-	size_t partLen = [signatureData length]/2;
+	int partLen = (int)[signatureData length]/2;
 	signature->r = BN_bin2bn([signatureData bytes], partLen, signature->r);
 	signature->s = BN_bin2bn([signatureData bytes] + partLen, partLen, signature->s);
 	if (!signature->r || !signature->s) {
