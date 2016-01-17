@@ -18,6 +18,11 @@
 
 #import "EllipticLicense.h"
 #import "NSData+ELAdditions.h"
+#include <openssl/sha.h>
+#include <openssl/ec.h>
+#include <openssl/ecdsa.h>
+#include <openssl/obj_mac.h>
+#include <openssl/ossl_typ.h>
 
 #ifdef __clang__
 // OpenSSL is deprecated in OS X, but still good enough for licensing checks:
@@ -32,6 +37,10 @@
 NSString *ELCurveNameSecp112r1 = @"secp112r1";
 NSString *ELCurveNameSecp128r1 = @"secp128r1";
 NSString *ELCurveNameSecp160r1 = @"secp160r1";
+
+@interface EllipticLicense() {
+    EC_KEY *ecKey;
+}
 
 @interface EllipticLicense (Private)
 - (NSString *)stringSeparatedWithDashes:(NSString *)string;
