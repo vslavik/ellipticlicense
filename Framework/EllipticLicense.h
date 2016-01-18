@@ -17,19 +17,12 @@
 //  limitations under the License.
 
 #import <Cocoa/Cocoa.h>
-#include <openssl/sha.h>
-#include <openssl/ec.h>
-#include <openssl/ecdsa.h>
-#include <openssl/obj_mac.h>
-#include <openssl/ossl_typ.h>
 
 extern NSString *ELCurveNameSecp112r1;
 extern NSString *ELCurveNameSecp128r1;
 extern NSString *ELCurveNameSecp160r1;
 
 @interface EllipticLicense : NSObject {
-	EC_KEY *ecKey;
-
 	NSArray *blockedLicenseKeyHashes; // List of SHA-1 hashes of blocked license keys (without dashes). Use hashStringOfLicenseKey to get proper hash. Use setBlockedLicenseKeyHashes to set it.
 
 	unsigned int numberOfDashGroupCharacters; // number of characters in groups in final license key (xxxxx-xxxxx-...)
