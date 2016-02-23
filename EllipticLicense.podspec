@@ -17,8 +17,9 @@ s.source_files = "Framework/*.{h,m}", "c_api/*.{h,c}"
 
 s.frameworks   = "Cocoa"
 
-s.library      = "crypto.0.9.8"
 s.requires_arc = true
 s.xcconfig     = { 'OTHER_LDFLAGS' => '-lObjC'}
+
+s.dependency  'OpenSSL-OSX'
 
 end
