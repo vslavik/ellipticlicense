@@ -41,6 +41,7 @@ NSString *ELCurveNameSecp160r1 = @"secp160r1";
 @interface EllipticLicense() {
     EC_KEY *ecKey;
 }
+@end
 
 @interface EllipticLicense (Private)
 - (NSString *)stringSeparatedWithDashes:(NSString *)string;
