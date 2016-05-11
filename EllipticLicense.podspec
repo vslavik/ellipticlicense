@@ -20,4 +20,6 @@ s.frameworks   = "Cocoa"
 s.requires_arc = true
 s.xcconfig     = { 'OTHER_LDFLAGS' => '-lObjC'}
 
+s.dependency  'OpenSSL-OSX'
+
 end

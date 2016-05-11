@@ -20,10 +20,7 @@ Modern enough OS X SDK (10.7 or up) is required. You must also have OpenSSL libr
 
 The easiest way to add EllipticLicense to your project is with CocoaPods:
 
-    $ pod install OpenSSL-OSX
     $ pod install EllipticLicense
-
-Notice that you have to add (some version of) OpenSSL explicitly due to limitations of CocoaPods' dependencies handling that breaks for library pods like EllipticLicense.
 
 Alternatively, simply include all files form the `c_api` folder in your project. It is recommend to use this API instead of the Objective-C one, because it cannot be introspected at runtime (unlike Obj-C) and so is somehow less vulnerable to being patched out.
 
