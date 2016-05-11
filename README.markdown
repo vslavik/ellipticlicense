@@ -13,6 +13,21 @@ Project goal: replacement for AquaticPrime with shorter keys and similar or bett
 
 [Watch screencast](http://www.youtube.com/watch?v=lcT8YcbUpg0)
 
+
+## Installation
+
+Modern enough OS X SDK (10.7 or up) is required. You must also have OpenSSL library and headers. Starting with OS X 10.11 SDK, OpenSSL 0.9.7 (which was deprecated in the SDK for years) headers are no longer available and you have to compile your own version of OpenSSL. A reasonable version that is known to work is `OpenSSL-OSX` from CocoaPods.
+
+The easiest way to add EllipticLicense to your project is with CocoaPods:
+
+    $ pod install OpenSSL-OSX
+    $ pod install EllipticLicense
+
+Notice that you have to add (some version of) OpenSSL explicitly due to limitations of CocoaPods' dependencies handling that breaks for library pods like EllipticLicense.
+
+Alternatively, simply include all files form the `c_api` folder in your project. It is recommend to use this API instead of the Objective-C one, because it cannot be introspected at runtime (unlike Obj-C) and so is somehow less vulnerable to being patched out.
+
+
 ## Example keys
 
 112-bit curve (~ equivalent to RSA-512, 2^56 bit security):
@@ -34,11 +49,7 @@ Project goal: replacement for AquaticPrime with shorter keys and similar or bett
 
 
 There's a GUI application for managing your project public and private keys, generating licenses and blocking keys called EllipticLicenseDeveloper included.
-	
 
-## Requirements
-
-Mac OS X 10.7 (because it includes libcrypto.0.9.8d.dylib, don't forget to link you project with it).	
 
 
 License
