@@ -61,7 +61,7 @@ void el_destroy_context(el_context_t ctxt);
     The @a keyHashes array contains SHA-1 hashes of blocked keys (20 bytes per
     hash). The hashes are computed from license keys (not names) by first
     decoding the user-entered key as base32 (see el_base32_decode()) and then
-    calculating SHA-1 has of the decoded data.
+    calculating SHA-1 hash of the decoded data.
 
     The @a keyHashes pointer must remain valid as long as @a ctxt is being used;
     this function does not make a copy.
