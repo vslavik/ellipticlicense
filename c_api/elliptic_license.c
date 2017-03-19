@@ -33,6 +33,10 @@
 #include <openssl/obj_mac.h>
 #include <openssl/ossl_typ.h>
 
+#define DIGEST_LENGTH_112   14
+#define DIGEST_LENGTH_128   16
+#define DIGEST_LENGTH_160   20
+#define DIGEST_LENGTH_MAX   DIGEST_LENGTH_160
 
 struct el_context
 {
@@ -54,15 +58,15 @@ el_context_t el_create_context(el_curve_t curve,
     {
         case el_curve_secp112r1:
             key = EC_KEY_new_by_curve_name(NID_secp112r1);
-            digestLength = 14;
+            digestLength = DIGEST_LENGTH_112;
             break;
         case el_curve_secp128r1:
             key = EC_KEY_new_by_curve_name(NID_secp128r1);
-            digestLength = 16;
+            digestLength = DIGEST_LENGTH_128;
             break;
         case el_curve_secp160r1:
             key = EC_KEY_new_by_curve_name(NID_secp160r1);
-            digestLength = 20;
+            digestLength = DIGEST_LENGTH_160;
             break;
     }
 
@@ -95,6 +99,14 @@ void el_destroy_context(el_context_t ctxt)
     if (ctxt->ecKey)
         EC_KEY_free(ctxt->ecKey);
     free(ctxt);
+}
+
+
+int el_set_private_key(el_context_t ctxt,
+                       const uint8_t *privateKeyData, int privateKeyLength)
+{
+    ctxt->ecKey = d2i_ECPrivateKey(&ctxt->ecKey, &privateKeyData, privateKeyLength);
+    return ctxt->ecKey && EC_KEY_check_key(ctxt->ecKey);
 }
 
 
@@ -173,6 +185,46 @@ int el_verify_license_key(el_context_t ctxt,
     ECDSA_SIG_free(signature);
 
     return result;
+}
+
+
+int el_generate_license_key(el_context_t ctxt,
+                            const char *name, char *output)
+{
+    int signatureLength = 2 * ctxt->digestLength;
+    int bufferLength = el_base32_encode_buffer_size(signatureLength);
+
+    if (output == NULL)
+        return bufferLength;
+
+    unsigned char digest[DIGEST_LENGTH_MAX];
+    el_compute_digest(name, digest, ctxt->digestLength);
+
+    unsigned char signatureBytes[2 * DIGEST_LENGTH_MAX];
+
+    // The length of ECDSA_SIG's r and s components may be shorter than digestLength rarely
+    // (see docs, incl. BN_num_bytes). We want fixed-length license keys, so just discard
+    // these results.
+    for (;;)
+    {
+        ECDSA_SIG *sig = ECDSA_do_sign(digest, ctxt->digestLength, ctxt->ecKey);
+        if (sig == NULL)
+            return -1;
+        int rlen = BN_num_bytes(sig->r);
+        int slen = BN_num_bytes(sig->s);
+        if (rlen + slen == signatureLength)
+        {
+            BN_bn2bin(sig->r, signatureBytes);
+            BN_bn2bin(sig->s, signatureBytes+rlen); // join two values into signatureBytes
+            ECDSA_SIG_free(sig);
+            break;
+        }
+        // else: try again
+        ECDSA_SIG_free(sig);
+    }
+
+    el_base32_encode(signatureBytes, signatureLength, output, bufferLength);
+    return bufferLength;
 }
 
 

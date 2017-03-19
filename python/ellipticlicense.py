@@ -76,3 +76,38 @@ class LicenseVerifier:
         if isinstance(name, str):
             name = name.encode('utf-8')
         return bool(_impl.el_verify_license_key(self.ctxt, key, name))
+
+
+class LicenseGenerator:
+    """
+    Generates licenses.
+    """
+    def __init__(self, curve, public_key, private_key):
+        """
+        :param curve: Elliptic curve to use, one of the SECPxxx constants
+        :param public_key: A bytearray with the public key
+        :param private_key: A bytearray with the private key
+        """
+        self.ctxt = c_void_p(_impl.el_create_context(curve, public_key, len(public_key)))
+        if not bool(_impl.el_set_private_key(self.ctxt, private_key, len(private_key))):
+            raise RuntimeError('invalid private key')
+
+    def __del__(self):
+        if self.ctxt:
+            _impl.el_destroy_context(self.ctxt)
+
+    def generate_license_key(self, name):
+        """
+        Generates a new license key for 'name'.
+
+        :param name: Identifier of license holder (e.g. name), as a string or UTF-8 encoded bytearray.
+        :return: String with the license key.
+        """
+        if isinstance(name, str):
+            name = name.encode('utf-8')
+        size = _impl.el_generate_license_key(self.ctxt, name, None)
+        buf = create_string_buffer(size)
+        if _impl.el_generate_license_key(self.ctxt, name, byref(buf)) == -1:
+            raise RuntimeError('error generating license key')
+        return buf.value.decode('utf-8')
+

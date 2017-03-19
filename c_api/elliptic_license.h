@@ -53,6 +53,21 @@ el_context_t el_create_context(el_curve_t curve,
 void el_destroy_context(el_context_t ctxt);
 
 /**
+    Attaches private key to the context.
+
+    This is only required if you're going to use the context for generating
+    new keys.
+
+    @param ctxt             EL context.
+    @param privateKeyData   Private key to use.
+    @param privateKeyLength Length of @a privateKeyData data.
+
+    @return 1 on success, 0 if the key was invalid.
+ */
+int el_set_private_key(el_context_t ctxt,
+                       const uint8_t *privateKeyData, int privateKeyLength);
+
+/**
     Sets list of blocked (blacklisted) keys that should not be accepted.
 
     Typically, this functionality is used to block keys for refunded purchases
@@ -95,6 +110,20 @@ void el_set_blocked_keys(el_context_t ctxt,
 int el_verify_license_key(el_context_t ctxt,
                           const char *licenseKey, const char *name);
 
+/**
+    Generates a new license key.
+
+    Note that you must call el_set_private_key() before calling this function.
+
+    @param ctxt       EL context.
+    @param name       UTF-8 encoded identifier of license holder (e.g. name).
+    @param output     Buffer to write the key into. If NUL, the function will
+                      only return the number of bytes required.
+
+    @return The number of output bytes or -1 on error.
+ */
+int el_generate_license_key(el_context_t ctxt,
+                            const char *name, char *output);
 
 /**
     Calculates SHA-256 digest of the input, truncated to requested size in bytes.
