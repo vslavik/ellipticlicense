@@ -14,7 +14,7 @@ xcuserdata
 profile
 *.moved-aside
 
-Server/elgen/elgen
+Server/utils/elgen
 
 python/build
 python/dist
