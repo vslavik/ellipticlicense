@@ -2,7 +2,7 @@
 //  elliptic_license.c
 //  EllipticLicense
 //
-//  Copyirght (c) 2013 Vaclav Slavik
+//  Copyright (c) 2013-2017 Vaclav Slavik
 //  Copyright (c) 2009 Dmitry Chestnykh, Coding Robots
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
