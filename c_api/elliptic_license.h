@@ -67,7 +67,7 @@ void el_destroy_context(el_context_t ctxt);
     this function does not make a copy.
 
     Example:
-    
+
         static const uint8_t blocked_keys[] = {
           // Key A7MS6-VWIW5-35WFV-72XMU-FLGMH-CTGTJ-FPHYX-DUMTF-V3CQY:
           0xE9,0x4D,0x1B,0xFC,0x06,0xCB,0x97,0x8F,0xE3,0xC6,0xF9,0xBD,0x25,0x51,0xB1,0xA9,0xEA,0xFF,0x66,0x18,
@@ -85,11 +85,11 @@ void el_set_blocked_keys(el_context_t ctxt,
 
 /**
     Verifies validity of the license key.
-    
+
     @param ctxt       EL context.
     @param licenseKey The key, as a base32-encoded string.
     @param name       UTF-8 encoded identifier of license holder (e.g. name).
-    
+
     @return 0 if the key is invalid, nonzero if valid.
  */
 int el_verify_license_key(el_context_t ctxt,
@@ -117,7 +117,7 @@ int el_base32_decode_buffer_size(int stringLength);
 
 /**
     Size of the buffer needed to encode data of given length to base32.
-    
+
     @note The returned value includes space for the terminating NULL character.
  */
 int el_base32_encode_buffer_size(int dataLength);
@@ -135,7 +135,7 @@ int el_base32_encode_buffer_size(int dataLength);
     @return The number of output bytes or -1 on error.
 
     @note If the output buffer is too small, the result will silently be truncated.
-    
+
     @see el_base32_decode_buffer_size()
  */
 int el_base32_decode(const char *encoded, uint8_t *result, int bufSize);
