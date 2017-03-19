@@ -15,6 +15,7 @@ profile
 *.moved-aside
 
 Server/utils/elgen
+Server/utils/generate-key
 
 python/build
 python/dist

@@ -2,14 +2,19 @@
 LDFLAGS += -lcrypto
 CFLAGS += --std=c99 -I../../c_api
 
-SRC_FILES = elgen.c \
-			../../c_api/elliptic_license.c ../../c_api/base32.c
+LIB_SRC_FILES = ../../c_api/elliptic_license.c ../../c_api/base32.c
 
+ELGEN_SRC_FILES = elgen.c $(LIB_SRC_FILES)
+GENERATE_KEY_SRC_FILES = generate-key.c $(LIB_SRC_FILES)
 
-all: elgen
+all: elgen generate-key
 
-elgen: $(SRC_FILES)
-	$(CC) -o $@ $(SRC_FILES) $(CFLAGS) $(LDFLAGS)
+elgen: $(ELGEN_SRC_FILES)
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
+
+generate-key: $(GENERATE_KEY_SRC_FILES)
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 clean:
 	rm -f elgen
+	rm -f generate-key
