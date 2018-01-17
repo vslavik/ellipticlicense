@@ -2,7 +2,7 @@
 //  generate-key - command line utility for creation of crypto keys
 //  Part of EllipticLicense project
 //
-//  Copyright (c) 2017 Vaclav Slavik
+//  Copyright (c) 2017-2018 Vaclav Slavik
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
