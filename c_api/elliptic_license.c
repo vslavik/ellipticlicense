@@ -33,6 +33,32 @@
 #include <openssl/obj_mac.h>
 #include <openssl/ossl_typ.h>
 
+// Add some helpers to be compatible with both OpenSSL >= 1.1 and old versions
+// (see https://wiki.openssl.org/index.php/OpenSSL_1.1.0_Changes):
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+
+static void ECDSA_SIG_get0(const ECDSA_SIG *sig, const BIGNUM **pr, const BIGNUM **ps)
+{
+    if (pr != NULL)
+        *pr = sig->r;
+    if (ps != NULL)
+        *ps = sig->s;
+}
+
+static int ECDSA_SIG_set0(ECDSA_SIG *sig, BIGNUM *r, BIGNUM *s)
+{
+    if (r == NULL || s == NULL)
+        return 0;
+    BN_clear_free(sig->r);
+    BN_clear_free(sig->s);
+    sig->r = r;
+    sig->s = s;
+    return 1;
+}
+
+#endif // OPENSSL_VERSION_NUMBER < 0x10100000L
+
+
 #define DIGEST_LENGTH_112   14
 #define DIGEST_LENGTH_128   16
 #define DIGEST_LENGTH_160   20
@@ -150,14 +176,17 @@ int el_verify_license_key(el_context_t ctxt,
     }
 
     int partLen = signatureLength / 2;
-    signature->r = BN_bin2bn(signatureData,           partLen, signature->r);
-    signature->s = BN_bin2bn(signatureData + partLen, partLen, signature->s);
-    if (!signature->r || !signature->s)
+    BIGNUM *r = BN_new();
+    BIGNUM *s = BN_new();
+    r = BN_bin2bn(signatureData,           partLen, r);
+    s = BN_bin2bn(signatureData + partLen, partLen, s);
+    if (!r || !s)
     {
         free(signatureData);
         ECDSA_SIG_free(signature);
         return 0;
     }
+    ECDSA_SIG_set0(signature, r, s);
 
     digest = malloc(ctxt->digestLength);
     el_compute_digest(name, digest, ctxt->digestLength);
@@ -210,12 +239,14 @@ int el_generate_license_key(el_context_t ctxt,
         ECDSA_SIG *sig = ECDSA_do_sign(digest, ctxt->digestLength, ctxt->ecKey);
         if (sig == NULL)
             return -1;
-        int rlen = BN_num_bytes(sig->r);
-        int slen = BN_num_bytes(sig->s);
+        const BIGNUM *r, *s;
+        ECDSA_SIG_get0(sig, &r, &s);
+        int rlen = BN_num_bytes(r);
+        int slen = BN_num_bytes(s);
         if (rlen + slen == signatureLength)
         {
-            BN_bn2bin(sig->r, signatureBytes);
-            BN_bn2bin(sig->s, signatureBytes+rlen); // join two values into signatureBytes
+            BN_bn2bin(r, signatureBytes);
+            BN_bn2bin(s, signatureBytes+rlen); // join two values into signatureBytes
             ECDSA_SIG_free(sig);
             break;
         }
